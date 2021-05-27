@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="d-flex justify-content-center text-center">
+
+
+        {{ form_start(form) }}
+        <h2>Edytuj ogólne ustawienia konta:</h2>
+        <table class="table table-responsive table-borderless">
+
+            <tr>
+                <td>Nazwa użytkownika:</td><td>{{ form_row(form.username) }}</td>
+            </tr>
+            <tr>
+                <td>Imię:</td><td>{{ form_row(form.firstName) }}</td>
+            </tr>
+            <tr>
+                <td>Nazwisko:</td><td>{{ form_row(form.lastName) }}</td>
+            </tr>
+
+            <tr>
+                <td>Email:</td><td>{{ form_row(form.email) }}</td>
+            </tr>
+            <tr>
+                <td>Zdjęcie profiliowe(opcjonalnie):</td><td>{{ form_row(form.profilePhotoName) }}</td>
+            </tr>
+
+            <tr class="">
+                <td colspan="2" >
+                    <button type="submit" class="btn btn-info">Zapisz dane!</button>
+
+                </td>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+

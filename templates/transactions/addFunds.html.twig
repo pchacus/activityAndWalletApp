@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+
+    <div class="d-flex justify-content-center text-center" >
+        {{ form_start(form) }}
+        <h2>Dodaj fundusze do konta:</h2>
+        <table class="table table-responsive table-borderless">
+            <tr>
+                <td>Kwota doładowania:</td><td>{{ form_row(form.amount) }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit" class="btn  btn-success">Doładuj konto!</button></td>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

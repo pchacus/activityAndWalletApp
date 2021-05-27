@@ -1,0 +1,42 @@
+{%  extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="wrapper">
+        <div class="left">
+            {% if user.profilePhotoName%}
+                <img class="img-profile rounded-circle mr-2" src="{{ asset('static/img/uploaded/profilePhotos/' ~ user.profilePhotoName) }}" alt="profilowe_zdjecie">
+            {% else %}
+                <img class="img-profile rounded-circle mr-2" src="{{ asset('static/img/user.png') }}" alt="profilowe_zdjecie">
+            {% endif %}
+            <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+            <p>
+                {% if user.roles | length > 1 %}
+                    Administrator
+                {% endif %}
+            </p>
+            <p>{{ user.email }}</p>
+        </div>
+        <div class="right">
+            <div class="info">
+                <h3>Średnia ocen:</h3>
+                <div class="info_data">
+                    <div class="data">
+                        <table class="table table-responsive table-borderless">
+                            {% if grades  %}
+                                <tr><td>Poziom gry: </td><td>{{ grades.gameLevelGrade }}</td></tr>
+                                <tr><td>Kultura i nastawienie:</td><td> {{ grades.cultureGrade }}</td></tr>
+                                <tr><td>Poziom zaufania :</td><td>{{ grades.trustGrade }}</td></tr>
+                            {% else %}
+                                <tr><td>Brak ocen</td></tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}

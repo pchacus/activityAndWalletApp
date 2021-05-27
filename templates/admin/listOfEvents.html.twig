@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    {% for message in app.flashes('succes') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('fail') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-center text-center">
+
+    <table class="table">
+        <tr> <th>ID:</th><th>Nazwa:</th><th>Opis:</th><th>Miejsce Spotkania:</th><th>Cena: zł</th><th>Ilosc miejsc:</th><th>Data:</th>
+            <th colspan="2">Utworzone przez:</th><th>Edytuj:</th><th>Usuń:</th></tr>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name}}</td>
+                <td>{{ event.description }}
+                <td>{{ event.place_of_metting }}</td>
+                <td>{{ event.price }}</td>
+                <td>{{ event.number_of_seats }}</td>
+                <td>{{ event.date|date('d-m-Y')}}</td>
+
+                <td colspan="2">
+                    {{ event.first_name }}
+                    {{ event.last_name }}
+                </td>
+                <td>
+                    <a class="btn btn-success" href='{{ path('editEventCheck',{eventId:event.id}) }}'>Edytuj</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href='{{ path('adminDeleteEvent',{eventId:event.id}) }}'>Usuń</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+    </table>
+
+    </div>
+{% endblock %}

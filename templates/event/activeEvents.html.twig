@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {% for message in app.flashes('failed') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+
+{#    {% for items in joined %}#}
+{#        {% for item in items %}#}
+{#            {{ item|length }}#}
+{#                {% for i in 0..item|length %}#}
+{#            {{ item .~ i}}#}
+{#                    {{ item[ 'loop.index']}}#}
+{#            {% endfor %}#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
+
+
+
+
+    {% for event in events %}
+
+
+            <div class="card-media">
+                <!-- media container -->
+                <div class="card-media-object-container">
+
+                    <div class="card-media-object">
+                        {% if event.eventPhotoName %}
+                            <img  id="imgEvent" src="{{ asset('static/img/uploaded/eventsPhotos/' ~ event.eventPhotoName) }}" alt="profilowe_zdjecie">
+                        {% else %}
+                            <img src="{{ asset('static/img/brak_zdjecia.png') }}" alt="zdjecie_eventu" id="imgEvent">
+                        {% endif%}
+                    </div>
+                    <span class="card-media-object-tag subtle">{{ event.activity }}</span>
+
+
+                </div>
+
+
+                <div class="card-media-body">
+                    <div class="card-media-body-top">
+                        <span class="subtle"><i class="far fa-calendar-alt m-1"></i>{{ event.date|date('d-m-Y H:m')}}</span>
+
+                    </div>
+                    <span class="card-media-body-heading">
+                        <a class="font-weight-bold" style="font-size: x-large"> {{ event.name}}</a><br/>
+                        <a> {{ event.description }} </a>
+
+                    </span>
+                    <div class="card-media-body-supporting-bottom">
+                        <span class="card-media-body-supporting-bottom-text subtle"><i class="fas fa-map-marker-alt p-1"> {{ event.placeOfMetting }}</i></span>
+                        <span class="card-media-body-supporting-bottom-text subtle u-float-right">
+                            Ilość miejsc:  {{ event.numberOfSeats }}
+                            {% if event.price %}
+                                Cena:
+                                {{ event.price }}
+                                zł
+                            {% else %}
+                                <a class="font-weight-bold" style="color: #FFA000">Za darmo!</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                        <span class="card-media-body-supporting-bottom-text subtle">
+                            {% if app.user %}
+
+                                {% set ok = false %}
+                                      {% for items in joined %}
+                                          {% for key,item in items %}
+                                              {% if key == event.id %}
+                                                  {% for i in item %}
+                                                      {% if i == app.user.id %}
+                                                          {% set ok = true %}
+                                                      {% else %}
+                                                      {% endif %}
+                                                  {% endfor %}
+                                              {% endif %}
+                                          {% endfor %}
+                                      {% endfor %}
+                                {% if event.numberOfSeats %}
+                                    {% if ok == false %}
+                                       <a class="btn btn-success" href='{{ path('eventJoin',{eventId:event.id}) }}'>Dołącz</a>
+                                    {% else %}
+                                        <a class="text-info"> Dołączyłeś juz do wydarzenia</a>
+                                    {% endif %}
+                                {% else%}
+
+                                      <a class="text-info">Brak miejsc na wydarzeniu!</a>
+
+                                {% endif %}
+
+                            {% endif %}
+                        </span>
+                        <a href="{{ path('pageOfEvent',{eventId:event.id}) }}" class="card-media-body-supporting-bottom-text card-media-link u-float-right">Więcej szczegółów</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+{% endblock %}

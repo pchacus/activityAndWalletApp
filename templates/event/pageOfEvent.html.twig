@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="wrapper">
+        <div class="left">
+                {% if event.eventPhotoName %}
+                    <img class="w-100" src="{{ asset('static/img/uploaded/eventsPhotos/' ~ event.eventPhotoName) }}" alt="profilowe_zdjecie">
+                {% else %}
+                    <img class="w-100" src="{{ asset('static/img/brak_zdjecia.png' ) }}" alt="profilowe_zdjecie">
+                {% endif %}
+
+        </div>
+        <div class="right">
+            <div class="info">
+                <h3>Informacje o wydarzeniu:</h3>
+                <div class="info_data">
+                    <div class="data">
+                        <table class="table table-responsive table-borderless">
+                            <tr><td>Nazwa wydarzenia:</td><td>{{ event.name}}</td></tr>
+                            <tr><td>Aktywność wydarzenia:</td><td>{{ event.activity }}</td></tr>
+                            <tr><td>Miejsce wydarzenia:</td><td>{{ event.placeOfMetting }}</td></tr>
+                            <tr><td>Ilość miejsc:</td><td>{{  event.numberOfSeats }}</td></tr>
+                            <tr><td>Data wydarzenia:</td><td>{{ event.date| date('d-m-Y H:m') }}</td></tr>
+                            <tr><td>Opis wydarzenia:</td><td>{{ event.description }}</td></tr>
+                            <tr><td>Cena wydarzenia:</td><td>{{ event.price }}</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="projects">
+                <h3>Zapisani użytkownicy:</h3>
+                <div class="projects_data">
+                    <div class="data text-center">
+                        {% for user in users %}
+                            <div id="tooltip">
+                                {% if user.profilePhotoName%}
+                                <a href="{{ path('showUserAccount', {username:user.username}) }}">
+                                    <img class="rounded-circle" style="height:32px;" src="{{ asset('static/img/uploaded/profilePhotos/' ~ user.profilePhotoName) }}" alt="profilowe_zdjecie">
+                                </a>
+                                {% else %}
+                                   <a href="{{ path('showUserAccount', {username:user.username}) }}">
+                                       <img class="rounded-circle" style="height:32px;" src="{{ asset('static/img/nouser.png') }} " alt="profilowe_zdjecie">
+                                   </a>
+                                {% endif %}
+                                <div id="right">
+                                    {% if user.profilePhotoName%}
+                                        <img src="{{ asset('static/img/uploaded/profilePhotos/' ~ user.profilePhotoName) }}" alt="profilowe_zdjecie">
+                                    {% else %}
+                                        <img src="{{ asset('static/img/nouser.png') }}" alt="profilowe_zdjecie">
+                                    {% endif %}
+                                    <div id="text-content">
+                                        <table class="table table-borderless text-center ">
+                                            <tr><td>{{ user.firstName }} {{ user.lastName }}</td></tr>
+                                            <tr>
+                                                <td>
+                                                {% if user.roles | length > 1 %}
+                                                    Administrator
+                                                {% else %}
+                                                    Zwykły Użytkownik
+                                                {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a class="btn" style="color: #FFA000" href="{{ path('showUserAccount', {username:user.username}) }}">
+                                                        Zobacz profil
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

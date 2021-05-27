@@ -1,0 +1,104 @@
+index:
+  path: /
+  controller: App\Controller\EventController::showActiveEvents
+
+
+#ADMIN USER ROUTES
+listOfUsers:
+  path: /admin/users
+  controller: App\Controller\AdminUsersController::listOfUsers
+
+adminUserDelete:
+  path: /admin/user/delete/{userId}
+  controller: App\Controller\AdminUsersController::deleteUserAccount
+
+adminUserEdit:
+  path: /admin/user/edit/{userId}
+  controller: App\Controller\AdminUsersController::editUserAccount
+
+adminPromToAdmin:
+  path: /admin/promo/{userId}
+  controller: App\Controller\AdminUsersController::promoUserToAdmin
+
+
+#ADMIN EVENTS ROUTES
+
+listOfEvents:
+  path: /admin/events
+  controller: App\Controller\AdminEventsController::listOfEvents
+
+
+
+adminDeleteEvent:
+  path: /admin/event/delete/{eventId}
+  controller: App\Controller\AdminEventsController::deleteEvent
+
+
+#USER ROUTES
+
+showUserAccount:
+  path: /user/account/{username}
+  controller: App\Controller\UserController::showUserAccount
+
+userAccount:
+  path: /user/account/
+  controller: App\Controller\UserController::showAccount
+
+userGrades:
+  path: /user/account
+  controller: App\Controller\UserController::userGrades
+
+userEditAccount:
+  path: /user/edit
+  controller: App\Controller\UserController::editAccount
+
+changePassword:
+  path: /user/password
+  controller: App\Controller\PasswordController::changePassword
+
+createdEventsByUser:
+  path: /user/created
+  controller: App\Controller\EventController::createdEventsByUser
+
+joinedEvents:
+  path: /user/joined
+  controller: App\Controller\EventController::joinedEvents
+
+#EVENT ROUTES
+
+editEvent:
+  path: /event/edit/{eventId}
+  controller: App\Controller\EventController::editEvent
+
+editEventCheck:
+  path: /event/editCheck/{eventId}
+  controller: App\Controller\EventController::editEventCheck
+
+eventCreate:
+  path: /user/event/create
+  controller: App\Controller\EventController::createEvent
+
+eventJoin:
+  path: /user/event/join/{eventId}
+  controller: App\Controller\EventController::joinToEvent
+
+userRating:
+  path: /user/event/rating/{eventId}
+  controller: App\Controller\RatingController::listOfUsersOnEvent
+
+rate:
+  path: /user/event/rate/{eventId}
+  controller: App\Controller\RatingController::ratedUsers
+
+pageOfEvent:
+  path: /event/{eventId}
+  controller: App\Controller\EventController::pageOfEvent
+
+eventReport:
+  path: /event/raport/{eventId}
+  controller: App\Controller\EventController::eventReport
+#TRANSACTION ROUTES
+
+addFunds:
+  path: /user/funds/add
+  controller: App\Controller\TransactionsController::addFunds

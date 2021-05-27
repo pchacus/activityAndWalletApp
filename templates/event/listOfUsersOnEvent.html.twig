@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="d-flex justify-content-center text-center">
+        {% if users %}
+        <form method="post" action="{{ path('rate',{eventId:eventId}) }}">
+            <h2>Oceń użytkowników za wydarzenie:</h2>
+        <table class="table table-responsive text-center table-bordered w-100">
+            <tr><th >Imie Nazwisko:</th><th>Poziom gry</th><th>Poziom zaufania </th><th>Poziom kultury i postawy</th></tr>
+
+
+            {% for user in users %}
+                {% if app.user.id != user.id %}
+                <tr>
+                    <td class="w-25">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>
+                                    {% if user.profilePhotoName%}
+                                        <img class="w-25 img-profile rounded-circle" src="{{ asset('static/img/uploaded/profilePhotos/' ~ user.profilePhotoName) }}" alt="profilowe_zdjecie">
+                                    {% else %}
+                                        <img class="w-25 img-profile rounded-circle" src="{{ asset('static/img/nouser.png') }}" alt="profilowe_zdjecie">
+                                    {% endif %}
+                                </td>
+
+                                {{ user.firstName }} {{ user.lastName }}
+                        </tr>
+                        </table>
+                    </td>
+
+                    <td class="w-25">
+                        <div class="rate">
+                            <input type="radio" id="game5{{ user.id }}" name="game{{ user.id }}" value="5">
+                            <label for="game5{{ user.id }}" title="5gwiazdek">5 stars</label>
+                            <input type="radio" id="game4{{ user.id }}" name="game{{ user.id }}" value="4">
+                            <label for="game4{{ user.id }}" title="4gwiazdki">4 stars</label>
+                            <input type="radio" id="game3{{ user.id }}" name="game{{ user.id }}" value="3">
+                            <label for="game3{{ user.id }}" title="3gwiazdki">3 stars</label>
+                            <input type="radio" id="game2{{ user.id }}" name="game{{ user.id }}" value="2">
+                            <label for="game2{{ user.id }}" title="2gwiazdki">2 stars</label>
+                            <input type="radio" id="game1{{ user.id }}" name="game{{ user.id }}" value="1">
+                            <label for="game1{{ user.id }}" title="1gwiazdka">1 star</label>
+                        </div>
+                    </td>
+
+                    <td class="w-25">
+                            <div class="rate">
+                            <input type="radio" id="trust5{{ user.id }}" name="trust{{ user.id }}" value="5">
+                            <label for="trust5{{ user.id }}" title="5gwiazdek">5 stars</label>
+                            <input type="radio" id="trust4{{ user.id }}" name="trust{{ user.id }}" value="4">
+                            <label for="trust4{{ user.id }}" title="4gwiazdki">4 stars</label>
+                            <input type="radio" id="trust3{{ user.id }}" name="trust{{ user.id }}" value="3">
+                            <label for="trust3{{ user.id }}" title="3gwiazdki">3 stars</label>
+                            <input type="radio" id="trust2{{ user.id }}" name="trust{{ user.id }}" value="2">
+                            <label for="trust2{{ user.id }}" title="2gwiazdki">2 stars</label>
+                            <input type="radio" id="trust1{{ user.id }}" name="trust{{ user.id }}" value="1">
+                            <label for="trust1{{ user.id }}" title="1gwiazdka">1 star</label>
+                        </div>
+                    </td>
+
+                    <td class="w-25">
+                        <div class="rate">
+                        <input type="radio" id="culture5{{ user.id }}" name="culture{{ user.id }}" value="5">
+                        <label for="culture5{{ user.id }}" title="5gwiazdek">5 stars</label>
+                        <input type="radio" id="culture4{{ user.id }}" name="culture{{ user.id }}" value="4">
+                        <label for="culture4{{ user.id }}" title="4gwiazdki">4 stars</label>
+                        <input type="radio" id="culture3{{ user.id }}" name="culture{{ user.id }}" value="3">
+                        <label for="culture3{{ user.id }}" title="3gwiazdki">3 stars</label>
+                        <input type="radio" id="culture2{{ user.id }}" name="culture{{ user.id }}" value="2">
+                        <label for="culture2{{ user.id }}" title="2gwiazdki">2 stars</label>
+                        <input type="radio" id="culture1{{ user.id }}" name="culture{{ user.id }}" value="1">
+                        <label for="culture1{{ user.id }}" title="1gwiazdka">1 star</label>
+                        </div>
+                    </td>
+                </tr>
+
+                {% endif %}
+            {% endfor %}
+            <tr><td colspan="5"><button type="submit" class="btn btn-secondary">Zatwierdz ocenianie!</button> </td></tr>
+        </table>
+        </form>
+        {% else %}
+            Dokonałeś juz oceny użytkowników tego wydarzenia!
+        {% endif %}
+    </div>
+
+{% endblock %}

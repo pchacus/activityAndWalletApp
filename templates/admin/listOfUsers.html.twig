@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    <div class="d-flex justify-content-center text-center">
+        <table class="table">
+            <tr> <th>ID:</th><th>Imie, Naziwsko:</th><th>Emial:</th><th>Stan Portfela: zł</th><th>Role:</th><th>Edytuj:</th><th>Promuj do Admina:</th><th>Usuń:</th></tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstName}} {{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.statusOfWallet }}</td>
+                    <td>
+                       {% if user.roles | length > 1 %}
+                             Administrator
+                       {% else %}
+                            Zwykły użytkownik
+                       {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href='{{ path('adminUserEdit',{userId:user.id}) }}'>Edytuj</a>
+                    </td>
+                    <td>
+                        {% if user.roles| length == 1 %}
+                            <a class="btn btn-warning" href='{{ path('adminPromToAdmin',{userId:user.id}) }}'>Promuj</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href='{{ path('adminUserDelete',{userId:user.id})}}'>Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
